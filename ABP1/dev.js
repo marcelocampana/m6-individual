@@ -5,7 +5,7 @@ process.stdout.write("Introduce la fecha de inicio (AAAA-MM-DD):");
 let startDate = null;
 let endDate = null;
 
-// Se define un evento en el objeto process.stdin que se activará cada vez que el usuario ingrese datos en la entrada estándar.
+// Se define un evento en el objeto process.stdin que se activará cada vez que el usuario ingrese datos en la consola.
 process.stdin.on("data", function (data) {
   // Si startDate es null, se establece su valor como la fecha ingresada por el usuario mediante el objeto Date de JavaScript.
   if (startDate === null) {
@@ -18,7 +18,7 @@ process.stdin.on("data", function (data) {
     // Se establece el valor de endDate como la fecha ingresada por el usuario mediante el objeto Date de JavaScript.
     endDate = new Date(data);
 
-    // Se inicializan dos arreglos vacíos: weekValues y valuesSaturday.
+    // Se inicializan dos arreglos vacíos: weekValues y saturdayValues.
     let weekValues = [];
     let saturdayValues = [];
 
@@ -32,7 +32,7 @@ process.stdin.on("data", function (data) {
       date <= endDate;
       date.setDate(date.getDate() + 1)
     ) {
-      // Se utiliza el método toLocaleDateString para obtener el nombre corto del día de la semana en español.
+      // Se utiliza el método toLocaleDateString para obtener el nombre corto del día de la semana en español Chile.
       const weekDay = date.toLocaleDateString("es-CL", {
         weekday: "short",
       });
