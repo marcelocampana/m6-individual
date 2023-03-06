@@ -5,7 +5,7 @@ process.stdout.write("Introduce la fecha de inicio (AAAA-MM-DD):");
 let startDate = null;
 let endDate = null;
 
-// Se define un evento en el objeto process.stdin que se activará cada vez que el usuario ingrese datos en la entrada estándar.
+// Se define un evento en el objeto process.stdin que se activará cada vez que el usuario ingrese datos en la consola.
 process.stdin.on("data", function (data) {
   // Si startDate es null, se establece sux` valor como la fecha ingresada por el usuario mediante el objeto Date de JavaScript.
   if (startDate === null) {
@@ -18,9 +18,9 @@ process.stdin.on("data", function (data) {
     // Se establece el valor de endDate como la fecha ingresada por el usuario mediante el objeto Date de JavaScript.
     endDate = new Date(data);
 
-    // Se inicializan dos arreglos vacíos: values y valuesSaturday.
-    let values = [];
-    let valuesSaturday = [];
+    // Se inicializan dos arreglos vacíos: weekValues y saturdayValues.
+    let weekValues = [];
+    let saturdayValues = [];
 
     // Se definen las constantes weekHourValue y saturdayHourValue.
     const weekHourValue = 7100;
@@ -32,7 +32,7 @@ process.stdin.on("data", function (data) {
       date <= endDate;
       date.setDate(date.getDate() + 1)
     ) {
-      // Se utiliza el método toLocaleDateString para obtener el nombre corto del día de la semana en español.
+      // Se utiliza el método toLocaleDateString para obtener el nombre corto del día de la semana en español Chile.
       const weekDay = date.toLocaleDateString("es-CL", {
         weekday: "short",
       });
@@ -43,47 +43,38 @@ process.stdin.on("data", function (data) {
       // Se utiliza una sentencia switch para asignar la cantidad de horas trabajadas según el día de la semana.
       switch (weekDay) {
         case "lun":
-          value = 7;
-          values.push(value);
-          break;
-        case "mar":
-          value = 8;
-          values.push(value);
-          break;
         case "mié":
-          value = 7;
-          values.push(value);
-          break;
-        case "jue":
-          value = 8;
-          values.push(value);
-          break;
         case "vie":
           value = 7;
-          values.push(value);
+          weekValues.push(value);
+          break;
+        case "mar":
+        case "jue":
+          value = 8;
+          weekValues.push(value);
           break;
         case "sáb":
           value = 5;
-          valuesSaturday.push(value);
+          saturdayValues.push(value);
           break;
         default:
       }
     }
 
     // Se calcula la cantidad total de horas trabajadas de lunes a viernes y los sábados, y el monto total a pagar.
-    const weekhours = values.reduce((a, b) => a + b, 0);
+    const weekhours = weekValues.reduce((a, b) => a + b, 0);
     const weekPayment = weekhours * weekHourValue;
-    const saturdayhours = valuesSaturday.reduce((a, b) => a + b, 0);
+    const saturdayhours = saturdayValues.reduce((a, b) => a + b, 0);
     const saturdayPayment = saturdayhours * saturdayHourValue;
     const total = weekPayment + saturdayPayment;
 
-    // Se genera el mensaje que se imprimirá en la salida estándar.
+    // Se genera el mensaje que se imprimirá en la consola.
     const ouput = `Cantidad Horas Trabajadas Lun-Vie:${weekhours} hrs.
-    valor hora=${"$" + Intl.NumberFormat("es-CL").format(weekHourValue)}
+Valor hora=${"$" + Intl.NumberFormat("es-CL").format(weekHourValue)}
 SubTotal = ${"$" + Intl.NumberFormat("es-CL").format(weekPayment)}
-----------------------------------------------------------------
+--------------------------------------------------
 Cantidad Horas Trabajadas Sáb:${saturdayhours} hrs.
-valor hora=${"$" + Intl.NumberFormat("es-CL").format(saturdayHourValue)}
+Valor hora=${"$" + Intl.NumberFormat("es-CL").format(saturdayHourValue)}
 SubTotal = ${"$" + Intl.NumberFormat("es-CL").format(saturdayPayment)}
 
 Total a pagar = ${
@@ -97,7 +88,7 @@ Total a pagar = ${
       Intl.NumberFormat("es-CL").format(total)
     }`;
 
-    // Se imprime el mensaje en la salida estándar.
+    // Se imprime el mensaje en la consola.
     console.log(ouput);
 
     // Se finaliza la ejecución del programa.
