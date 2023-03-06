@@ -7,7 +7,7 @@ let endDate = null;
 
 // Se define un evento en el objeto process.stdin que se activará cada vez que el usuario ingrese datos en la entrada estándar.
 process.stdin.on("data", function (data) {
-  // Si startDate es null, se establece su valor como la fecha ingresada por el usuario mediante el objeto Date de JavaScript.
+  // Si startDate es null, se establece sux` valor como la fecha ingresada por el usuario mediante el objeto Date de JavaScript.
   if (startDate === null) {
     startDate = new Date(data);
     // Se imprime en la salida estándar un mensaje pidiendo al usuario que ingrese la fecha final del período de pago.
