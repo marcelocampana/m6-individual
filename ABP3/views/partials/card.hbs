@@ -1,0 +1,15 @@
+<ul class="row">
+  {{#each data}}
+    <div class="card col-3 m-2" style="width: 18rem;">
+      <img src="{{this.Bandera}}" "class="card-img-top" alt="..." />
+      <div class="card-body">
+        <h5 class="card-title">{{this.País}}</h5>
+        <p class="card-text">Está en
+          {{this.Continente}}
+          y su capital es
+          {{this.Capital}}
+        </p>
+      </div>
+    </div>
+  {{/each}}
+</ul>
