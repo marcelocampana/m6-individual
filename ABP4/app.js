@@ -8,18 +8,19 @@ const fs = require("fs");
 const path = require("path");
 // Definir la ruta del archivo JSON
 const filePath = path.join(__dirname, "data/menu.json");
+console.log(filePath);
 
 // Definir la ruta principal "/"
 app.get("/", (req, res) => {
   // Leer el archivo JSON
   fs.readFile(filePath, "utf-8", (err, data) => {
+    console.log(data);
     if (err) throw err;
-    // Convertir el contenido del archivo a un objeto JSON
-    const jsonData = JSON.parse(data);
+
     // Imprimir el objeto JSON en la consola
-    console.log(jsonData);
+    console.log(data);
     // Enviar el objeto JSON como respuesta
-    res.send(jsonData);
+    res.send(data);
   });
 });
 
